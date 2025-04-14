@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/characters/kurt.gd" id="1_2b31m"]
+[ext_resource type="Texture2D" uid="uid://gv7scnun8p3o" path="res://assets/sprites/kurt.png" id="1_qqxj3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jxjl6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mlmur"]
+line_spacing = 2.08165e-12
+
+[node name="Kurt" type="Node2D"]
+script = ExtResource("1_2b31m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_qqxj3")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(12, 7)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jxjl6")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -124.0
+offset_top = -18.0
+offset_right = -1.0
+offset_bottom = 60.0
+text = "You can leave 
+here if you melt
+ this rock down"
+label_settings = SubResource("LabelSettings_mlmur")
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

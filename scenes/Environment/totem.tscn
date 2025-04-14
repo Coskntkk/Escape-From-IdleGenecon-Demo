@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/managers/totem.gd" id="1_hclri"]
+[ext_resource type="Texture2D" uid="uid://d2j8pkjtrrfj3" path="res://assets/icons/totem.png" id="2_5b3cc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hwh8e"]
+radius = 9.0
+
+[node name="Totem" type="Node2D"]
+script = ExtResource("1_hclri")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_5b3cc")
+hframes = 2
+vframes = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hwh8e")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

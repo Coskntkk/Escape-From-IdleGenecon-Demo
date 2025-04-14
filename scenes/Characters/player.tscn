@@ -1,0 +1,221 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://scripts/characters/Player.gd" id="1_xfeu0"]
+[ext_resource type="Texture2D" uid="uid://c3vlkuxdifr1" path="res://assets/sprites/Player.png" id="2_h61h1"]
+[ext_resource type="PackedScene" path="res://scenes/Interface/minions_ui.tscn" id="2_w5g7s"]
+[ext_resource type="PackedScene" path="res://scenes/Interface/inventory_ui.tscn" id="3_ldav2"]
+[ext_resource type="Texture2D" uid="uid://b8lbu65ntuwau" path="res://assets/cards/umay ana.png" id="5_picfh"]
+[ext_resource type="Texture2D" uid="uid://bbe2kep8bkvh6" path="res://assets/ui/progress_bar.png" id="6_iyxh5"]
+[ext_resource type="Script" path="res://scripts/managers/ProgressBar.gd" id="6_r6o2p"]
+[ext_resource type="Texture2D" uid="uid://c5i8botkn525u" path="res://assets/ui/progress.png" id="7_4ykaa"]
+[ext_resource type="Script" path="res://scripts/managers/card_1.gd" id="7_y1xf4"]
+[ext_resource type="Texture2D" uid="uid://dbd7qt2gkkhst" path="res://assets/cards/locked.png" id="9_csxpa"]
+[ext_resource type="Texture2D" uid="uid://6ny7kyvy2f2l" path="res://assets/cards/erlik.png" id="10_bsqga"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k72sr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sl2e6"]
+size = Vector2(38, 52)
+
+[sub_resource type="Animation" id="Animation_fq565"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_g5lyi"]
+resource_name = "idle"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_hibuo"]
+resource_name = "walk"
+length = 1.2
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28, 29]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_chv6w"]
+_data = {
+"RESET": SubResource("Animation_fq565"),
+"idle": SubResource("Animation_g5lyi"),
+"walk": SubResource("Animation_hibuo")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bh5vr"]
+radius = 6.0
+height = 20.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 26
+slide_on_ceiling = false
+script = ExtResource("1_xfeu0")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_smoothed = true
+editor_draw_limits = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="Minions" parent="Camera2D/CanvasLayer" instance=ExtResource("2_w5g7s")]
+
+[node name="Inventory" parent="Camera2D/CanvasLayer" instance=ExtResource("3_ldav2")]
+
+[node name="ProgressBar" type="Control" parent="Camera2D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+script = ExtResource("6_r6o2p")
+
+[node name="Bar" type="Sprite2D" parent="Camera2D/CanvasLayer/ProgressBar"]
+position = Vector2(0, -20)
+texture = ExtResource("6_iyxh5")
+
+[node name="Progress" type="Sprite2D" parent="Camera2D/CanvasLayer/ProgressBar/Bar"]
+position = Vector2(-1, 0)
+texture = ExtResource("7_4ykaa")
+region_enabled = true
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 100, 36)
+
+[node name="Deck" type="Control" parent="Camera2D/CanvasLayer/ProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -45.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Cards" type="Node2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck"]
+scale = Vector2(0.75, 0.75)
+
+[node name="Card1" type="Node2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards"]
+position = Vector2(-100, 2.08165e-12)
+script = ExtResource("7_y1xf4")
+num = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card1"]
+texture = ExtResource("5_picfh")
+
+[node name="Lock" type="Sprite2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card1"]
+texture = ExtResource("9_csxpa")
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card1"]
+visible = false
+offset_left = -73.3333
+offset_top = -56.0
+offset_right = 72.6667
+offset_bottom = -30.0
+text = "x2 Farmer efficiency"
+label_settings = SubResource("LabelSettings_k72sr")
+horizontal_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card1/Area2D"]
+shape = SubResource("RectangleShape2D_sl2e6")
+
+[node name="Card2" type="Node2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards"]
+position = Vector2(-50, 2.08165e-12)
+script = ExtResource("7_y1xf4")
+num = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card2"]
+texture = ExtResource("10_bsqga")
+
+[node name="Lock" type="Sprite2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card2"]
+texture = ExtResource("9_csxpa")
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card2"]
+visible = false
+offset_left = -75.3333
+offset_top = -56.0
+offset_right = 70.6667
+offset_bottom = -30.0
+text = "x2 Miner efficiency"
+label_settings = SubResource("LabelSettings_k72sr")
+horizontal_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card2/Area2D"]
+shape = SubResource("RectangleShape2D_sl2e6")
+
+[node name="LockedCard1" type="Node2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/LockedCard1"]
+texture = ExtResource("9_csxpa")
+
+[node name="LockedCard2" type="Node2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards"]
+position = Vector2(50, 2.08165e-12)
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/LockedCard2"]
+texture = ExtResource("9_csxpa")
+
+[node name="LockedCard3" type="Node2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards"]
+position = Vector2(100, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/LockedCard3"]
+texture = ExtResource("9_csxpa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_h61h1")
+hframes = 6
+vframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_chv6w")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_bh5vr")
+
+[connection signal="script_changed" from="Camera2D/CanvasLayer/ProgressBar" to="Camera2D/CanvasLayer/ProgressBar" method="_on_script_changed"]
+[connection signal="input_event" from="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card1/Area2D" to="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card1" method="_on_area_2d_input_event" flags=18]
+[connection signal="mouse_entered" from="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card1/Area2D" to="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card1" method="_on_area_2d_mouse_entered" flags=18]
+[connection signal="mouse_exited" from="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card1/Area2D" to="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card1" method="_on_area_2d_mouse_exited" flags=18]
+[connection signal="input_event" from="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card2/Area2D" to="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card2" method="_on_area_2d_input_event" flags=18]
+[connection signal="mouse_entered" from="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card2/Area2D" to="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card2" method="_on_area_2d_mouse_entered" flags=18]
+[connection signal="mouse_exited" from="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card2/Area2D" to="Camera2D/CanvasLayer/ProgressBar/Deck/Cards/Card2" method="_on_area_2d_mouse_exited" flags=18]

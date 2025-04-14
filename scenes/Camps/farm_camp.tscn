@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/buildings/farm_camp.gd" id="1_eufgb"]
+[ext_resource type="Texture2D" uid="uid://clscsg4ktk8oj" path="res://assets/buildings/cadirlar.png" id="1_wvdt0"]
+[ext_resource type="Texture2D" uid="uid://be7oy5gwrxxv3" path="res://assets/icons/icons.png" id="3_o6dnk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yb7pg"]
+size = Vector2(44, 11)
+
+[sub_resource type="LabelSettings" id="LabelSettings_anulo"]
+font_size = 12
+
+[node name="FarmCamp" type="Node2D"]
+script = ExtResource("1_eufgb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wvdt0")
+hframes = 3
+frame = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 240
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 20)
+shape = SubResource("RectangleShape2D_yb7pg")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 3.0
+offset_right = 64.0
+offset_bottom = 26.0
+text = "E"
+label_settings = SubResource("LabelSettings_anulo")
+
+[node name="CostLabel" type="Node2D" parent="."]
+position = Vector2(-58, -6)
+
+[node name="Icon" type="Sprite2D" parent="CostLabel"]
+texture = ExtResource("3_o6dnk")
+hframes = 3
+vframes = 2
+
+[node name="Label" type="Label" parent="CostLabel"]
+offset_left = 8.0
+offset_top = -12.0
+offset_right = 48.0
+offset_bottom = 11.0
+text = "10"
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon2" type="Sprite2D" parent="CostLabel"]
+position = Vector2(0, 18)
+texture = ExtResource("3_o6dnk")
+hframes = 3
+vframes = 2
+frame = 1
+
+[node name="Label2" type="Label" parent="CostLabel"]
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 48.0
+offset_bottom = 32.0
+text = "10"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

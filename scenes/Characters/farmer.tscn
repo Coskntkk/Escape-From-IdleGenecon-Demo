@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/characters/farmer.gd" id="1_lc5et"]
+[ext_resource type="Texture2D" uid="uid://difvy3oxnkhxt" path="res://assets/sprites/farmer.png" id="2_7mw8b"]
+
+[sub_resource type="Animation" id="Animation_fq565"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_g5lyi"]
+resource_name = "idle"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_hibuo"]
+resource_name = "walk"
+length = 1.2
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28, 29]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_chv6w"]
+_data = {
+"RESET": SubResource("Animation_fq565"),
+"idle": SubResource("Animation_g5lyi"),
+"walk": SubResource("Animation_hibuo")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bh5vr"]
+radius = 6.0
+height = 20.0
+
+[node name="Farmer" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 24
+script = ExtResource("1_lc5et")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_7mw8b")
+hframes = 6
+vframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["Minion"]]
+libraries = {
+"": SubResource("AnimationLibrary_chv6w")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_bh5vr")
