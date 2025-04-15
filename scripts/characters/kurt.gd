@@ -16,4 +16,4 @@ func _on_area_2d_body_entered(_body):
 func _on_area_2d_body_exited(_body):
 	$Label.visible = false
 	$Label2.visible = false
-	Global.inWolf = true
+	Global.inWolf = false
