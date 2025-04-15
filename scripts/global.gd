@@ -21,3 +21,5 @@ extends Node
 
 @onready var totems : int = 0
 @onready var unlockedCards : int = 0
+
+@onready var inWolf : bool = false

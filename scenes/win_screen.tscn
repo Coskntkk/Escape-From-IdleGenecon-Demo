@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dmjm0g1kb43xg"]
+
+[node name="WinScreen" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.243137, 0.537255, 0.282353, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+modulate = Color(0.701961, 0.72549, 0.819608, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You have successfully
+escaped the Ergenekon"
+horizontal_alignment = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://cguwv5rbun54j"]
 
 [ext_resource type="Script" path="res://scripts/characters/kurt.gd" id="1_2b31m"]
 [ext_resource type="Texture2D" uid="uid://gv7scnun8p3o" path="res://assets/sprites/kurt.png" id="1_qqxj3"]
@@ -33,6 +33,17 @@ text = "You can leave
 here if you melt
  this rock down"
 label_settings = SubResource("LabelSettings_mlmur")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+modulate = Color(0, 1, 0, 1)
+offset_left = -98.0
+offset_top = 3.0
+offset_right = 6.0
+offset_bottom = 55.0
+text = "Press E to 
+melt the rock"
 horizontal_alignment = 1
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

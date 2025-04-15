@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=19 format=3 uid="uid://bgayqble6vky6"]
 
 [ext_resource type="Script" path="res://scripts/characters/Player.gd" id="1_xfeu0"]
 [ext_resource type="Texture2D" uid="uid://c3vlkuxdifr1" path="res://assets/sprites/Player.png" id="2_h61h1"]
@@ -83,6 +83,7 @@ slide_on_ceiling = false
 script = ExtResource("1_xfeu0")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+limit_top = -144
 limit_smoothed = true
 editor_draw_limits = true
 

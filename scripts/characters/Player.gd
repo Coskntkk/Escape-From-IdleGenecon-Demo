@@ -42,7 +42,10 @@ func _physics_process(_delta):
 			Global.coal -= Global.farmerCost
 			Global.wood -= Global.farmerCost
 			Global.farmerCost = int(Global.farmerCost + (Global.farmerCost / 5))
-
+	if (Input.is_action_just_pressed("interact") and Global.inWolf):
+		$'../Kurt/Label2'.visible = false
+		$'../FireSprite'.visible = true
+		$'../FireSprite/AnimationPlayer'.play("burn")
 	move_and_slide()
 
 func spawnMinion(type):
@@ -67,3 +70,10 @@ func set_mineland(val: bool):
 
 func set_farmland(val: bool):
 	in_farmland = val
+
+
+func _on_animation_player_animation_finished(anim_name):
+	$'../FireSprite'.visible = false
+	var tilemap : TileMap = $'../TileMap'
+	tilemap.set_layer_enabled(0, false)
+	tilemap.set_layer_enabled(1, true)
